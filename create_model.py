@@ -3,17 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 
-
-def preprocess_with_debug(image, label):
-    try:
-        # Ensure valid image preprocessing
-        image = tf.image.resize(image, [128, 128])
-        return image, label
-    except Exception as e:
-        tf.print("Error processing image:", e)
-        return None, None  # Skip this image
-
-
 train_dir = "data/train"
 val_dir = "data/validation"
 
@@ -24,7 +13,6 @@ train_dataset = utils.image_dataset_from_directory(
     shuffle=True
 )
 
-train_dataset = train_dataset.map(preprocess_with_debug)
 
 val_dataset = utils.image_dataset_from_directory(
     val_dir,
@@ -33,7 +21,6 @@ val_dataset = utils.image_dataset_from_directory(
     shuffle=True
 )
 
-val_dataset = val_dataset.map(preprocess_with_debug)
 
 normalization_layer = layers.Rescaling(1. / 255)
 train_dataset = train_dataset.map(lambda x, y: (normalization_layer(x), y))
@@ -78,4 +65,3 @@ plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
 plt.legend()
 plt.show()
-
