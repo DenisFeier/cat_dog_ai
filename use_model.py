@@ -16,9 +16,9 @@ def predict_image(image_path):
     prediction = model.predict(input_image)
     print(prediction)
     if prediction[0] > 0.5:
-        return "It's a dogs!"
+        return "It's a dog!"
     else:
-        return "It's a cats!"
+        return "It's a cat!"
 
 
 test_image_path = "cat.10.jpg"
